@@ -1,3 +1,2 @@
-# Stick Repletion
-## Форум для программистов, на подобии Stack Overflow
+# Stick Repletion - форум для программистов, на подобии Stack Overflow
 
