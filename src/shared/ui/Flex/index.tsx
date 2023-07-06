@@ -1,6 +1,6 @@
 'use client';
 import { FC, FormEventHandler, HTMLAttributes, ReactNode } from 'react';
-import styles from './Search.module.css';
+import styles from './Flex.module.css';
 import classNames from 'classnames';
 
 interface FlexProps {
