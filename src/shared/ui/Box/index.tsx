@@ -6,7 +6,7 @@ import styles from './Box.module.css';
 interface BoxProps {
   className?: string;
   children?: ReactNode;
-  as: keyof JSX.IntrinsicElements;
+  as?: keyof JSX.IntrinsicElements;
 }
 
 export const Box: FC<BoxProps> = ({
