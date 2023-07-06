@@ -13,16 +13,16 @@
   transition: 0.2s ease background-color;
 }
 
+.button:active {
+  transform: scale(1.02);
+}
+
 .button__filled {
   background-color: #2bad72;
 }
 
 .button__filled:hover {
   background-color: #2eba7b;
-}
-
-.button__filled:active {
-  transform: scale(1.02);
 }
 
 .button__ghost {
