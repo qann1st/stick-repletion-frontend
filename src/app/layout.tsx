@@ -1,6 +1,7 @@
-import { Input } from '@/shared/ui/Input';
+import { Header } from '@/widgets/Header';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
+import '@/shared/lib/normalize.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={inter.className}>
         {children}
-        <Input placeholder="Логин" />
+        <Header />
       </body>
     </html>
   );
