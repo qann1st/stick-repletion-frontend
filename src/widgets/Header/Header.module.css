@@ -1,7 +1,27 @@
 .header {
-  width: 100vw;
+  background-color: rgb(39, 39, 39);
+  position: sticky;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 
 .buttons {
   gap: 5px;
+}
+
+.logo {
+  transition: all 0.2s ease;
+}
+
+.logo:hover {
+  filter: brightness(1.2);
+}
+
+@media (max-width: 550px) {
+  .header {
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 0;
+  }
 }
