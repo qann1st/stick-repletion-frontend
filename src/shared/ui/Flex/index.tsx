@@ -1,10 +1,10 @@
 'use client';
-import { FC, FormEventHandler, HTMLAttributes, ReactNode } from 'react';
+import { ElementType, FC, HTMLProps, ReactNode } from 'react';
 import styles from './Flex.module.css';
 import classNames from 'classnames';
 
 interface FlexProps {
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   align?: 'center';
   justify?: 'center' | 'space-between' | 'space-around';
   direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
@@ -13,7 +13,7 @@ interface FlexProps {
   children?: ReactNode;
 }
 
-export const Flex: FC<FlexProps> = ({
+export const Flex: FC<FlexProps & HTMLProps<HTMLElement>> = ({
   as: C = 'div',
   align,
   justify,

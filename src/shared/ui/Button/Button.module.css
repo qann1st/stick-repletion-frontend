@@ -11,6 +11,7 @@
   line-height: 30px;
   cursor: pointer;
   transition: 0.2s ease background-color;
+  transition: 0.1s ease transform;
 }
 
 .button:active {

@@ -17,9 +17,9 @@ export const Typography: FC<TypographyProps> = ({
 }) => (
   <C
     className={classNames(
-      styles.heading,
+      styles.typography,
       styles[
-        'heading_variant_' + (variant ? variant : typeof C === 'string' && C)
+        'typography_variant_' + (variant ? variant : typeof C === 'string' && C)
       ],
       className
     )}

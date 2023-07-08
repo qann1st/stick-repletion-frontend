@@ -1,0 +1,28 @@
+body {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(48, 48, 48);
+}
+
+.wrapper {
+  max-width: 1280px;
+  min-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  color: rgb(214, 214, 214);
+}
+
+input::placeholder {
+  color: rgb(144, 144, 144);
+}

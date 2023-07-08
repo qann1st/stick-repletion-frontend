@@ -1,5 +1,11 @@
 'use client';
-import { FC, FormEventHandler, HTMLAttributes, ReactNode } from 'react';
+import {
+  FC,
+  FormEventHandler,
+  HTMLAttributes,
+  HTMLProps,
+  ReactNode,
+} from 'react';
 import styles from './Input.module.css';
 import classNames from 'classnames';
 
@@ -9,7 +15,7 @@ interface InputProps {
   placeholder?: string;
 }
 
-export const Input: FC<InputProps & HTMLAttributes<HTMLInputElement>> = ({
+export const Input: FC<InputProps & HTMLProps<HTMLInputElement>> = ({
   className,
   children,
   placeholder,
@@ -17,7 +23,7 @@ export const Input: FC<InputProps & HTMLAttributes<HTMLInputElement>> = ({
 }) => (
   <input
     placeholder={placeholder}
-    className={classNames(styles.input)}
+    className={classNames(styles.input, className)}
     {...rest}
   />
 );

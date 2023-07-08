@@ -1,20 +1,17 @@
 'use client';
+import classNames from 'classnames';
 import { FC, FormEventHandler, HTMLAttributes, ReactNode } from 'react';
 import styles from './Search.module.css';
-import classNames from 'classnames';
 
-interface SearchProps {
+interface SearchInputProps {
   className?: string;
   children?: ReactNode;
   onSubmit?: FormEventHandler<HTMLFormElement>;
 }
 
-export const Search: FC<SearchProps & HTMLAttributes<HTMLInputElement>> = ({
-  className,
-  children,
-  onSubmit,
-  ...rest
-}) => (
+export const SearchInput: FC<
+  SearchInputProps & HTMLAttributes<HTMLInputElement>
+> = ({ className, children, onSubmit, ...rest }) => (
   <form onSubmit={onSubmit}>
     <input
       placeholder="Поиск..."
