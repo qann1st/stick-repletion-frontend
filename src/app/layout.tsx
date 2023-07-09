@@ -15,15 +15,16 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang="en">
+    <head>
+      <link rel="icon" href="/favicon/favicon.ico" />
+    </head>
     <body className={inter.className}>
-      <Suspense fallback={<Loading />}>
-        <Checker>
-          <div className="wrapper">
-            <Header />
-            {children}
-          </div>
-        </Checker>
-      </Suspense>
+      <Checker>
+        <Header />
+        <Suspense fallback={<Loading />}>
+          <main className="main">{children}</main>
+        </Suspense>
+      </Checker>
     </body>
   </html>
 );

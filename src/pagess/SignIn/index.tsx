@@ -7,48 +7,48 @@ import { Flex } from '@/shared/ui/Flex';
 import { Input } from '@/shared/ui/Input';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
-import styles from './SignUp.module.css';
+import styles from './SignIn.module.css';
+import { IState, useStore } from '@/shared/store';
 
-export const SignUp = () => {
-  const [username, setUsername] = useState('');
+export const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const user = useStore((state: IState) => state.user);
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (user) {
       router.push('/');
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [user]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     api
-      .signUp({ username, email, password })
-      .then(res => localStorage.setItem('token', res.accessToken))
+      .signIn({ email, password })
+
       .then(() => {
         router.push('/');
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   return (
     <Auth
-      link={{ name: 'Авторизация', href: '/signin' }}
-      heading="Присоединиться к форуму"
+      link={{ name: 'Регистрация', href: '/signup' }}
+      heading="Войдите в свой аккаунт"
     >
       <Flex
-        onSubmit={handleSubmit}
         as="form"
+        onSubmit={handleSubmit}
         className={styles.form}
         direction="column"
       >
-        <Input
-          onChange={e => setUsername(e.currentTarget.value)}
-          type="text"
-          name="username"
-          placeholder="Никнейм"
-          value={username}
-        />
         <Input
           onChange={e => setEmail(e.currentTarget.value)}
           type="email"
@@ -57,10 +57,12 @@ export const SignUp = () => {
           value={email}
         />
         <PasswordInput
-          onChange={e => setPassword(e.currentTarget.value)}
           value={password}
+          onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button className={styles.button}>Создать аккаунт</Button>
+        <Button type="submit" className={styles.button}>
+          {isLoading ? 'Загрузка...' : 'Вход'}
+        </Button>
       </Flex>
     </Auth>
   );

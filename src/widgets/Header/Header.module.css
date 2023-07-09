@@ -4,6 +4,13 @@
   left: 0;
   top: 0;
   right: 0;
+  padding: 0 10px;
+}
+
+.right {
+  align-items: center;
+  gap: 10px;
+  height: 100%;
 }
 
 .buttons {
@@ -16,6 +23,27 @@
 
 .logo:hover {
   filter: brightness(1.2);
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.profile {
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 7px;
+  height: 100%;
+}
+
+.profile:hover {
+  background-color: #2d2d2d;
+}
+
+.name {
+  color: rgb(148, 148, 148);
+  margin: 0;
 }
 
 @media (max-width: 550px) {
