@@ -3,6 +3,7 @@ import {
   FC,
   FormEventHandler,
   HTMLAttributes,
+  HTMLProps,
   ReactNode,
   useState,
 } from 'react';
@@ -16,11 +17,12 @@ interface PasswordInputProps {
   children?: ReactNode;
   onSubmit?: FormEventHandler<HTMLFormElement>;
   value?: string;
+  error?: string;
 }
 
 export const PasswordInput: FC<
-  PasswordInputProps & HTMLAttributes<HTMLInputElement>
-> = ({ className, children, onSubmit, value, ...rest }) => {
+  PasswordInputProps & HTMLProps<HTMLInputElement>
+> = ({ className, children, onSubmit, value, error, ...rest }) => {
   const [isText, setIsText] = useState(false);
 
   return (
@@ -30,6 +32,7 @@ export const PasswordInput: FC<
         name="password"
         placeholder="Пароль"
         value={value}
+        error={error}
         {...rest}
       />
       <button
