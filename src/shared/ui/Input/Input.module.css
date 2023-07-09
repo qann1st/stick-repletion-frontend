@@ -13,3 +13,13 @@
 .input:focus {
   box-shadow: 0 0 0px 2px rgb(46, 97, 74);
 }
+
+.error {
+  display: block;
+  margin: 4px 0 0;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 12px;
+  color: rgb(255, 26, 26);
+  max-width: 209px;
+}

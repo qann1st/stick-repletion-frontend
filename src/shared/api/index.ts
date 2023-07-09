@@ -28,7 +28,7 @@ class Api {
     });
     const json = await response.json();
     if (response.ok) return json;
-    console.error(json.message);
+    throw new Error(json.message);
   }
 
   public getToken(): string | null {
