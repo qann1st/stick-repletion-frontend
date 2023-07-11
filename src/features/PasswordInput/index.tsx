@@ -9,8 +9,8 @@ import {
 } from 'react';
 import styles from './PasswordInput.module.css';
 import classNames from 'classnames';
-import { Input } from '@shared/ui/Input';
-import { Box } from '@shared/ui/Box';
+import { Input } from '@shared';
+import { Box } from '@shared';
 
 interface PasswordInputProps {
   className?: string;

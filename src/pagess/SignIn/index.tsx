@@ -1,14 +1,13 @@
 'use client';
 import { Auth } from '@features';
 import { PasswordInput } from '@features';
-import { api } from '@shared/api';
-import { Button } from '@shared/ui/Button';
-import { Flex } from '@shared/ui/Flex';
-import { Input } from '@shared/ui/Input';
+import { Button } from '@shared';
+import { Flex } from '@shared';
+import { Input } from '@shared';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import styles from './SignIn.module.css';
-import { IState, useStore } from '@shared/store';
+import { IState, useStore, api } from '@shared/api';
 import { useForm } from '@shared/hooks/useForm';
 
 export const SignIn = () => {
