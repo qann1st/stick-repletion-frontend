@@ -1,16 +1,8 @@
 'use client';
-import {
-  FC,
-  FormEventHandler,
-  HTMLAttributes,
-  HTMLProps,
-  ReactNode,
-  useState,
-} from 'react';
-import styles from './PasswordInput.module.css';
+import { Box, Input } from '@shared';
 import classNames from 'classnames';
-import { Input } from '@shared';
-import { Box } from '@shared';
+import { FC, FormEventHandler, HTMLProps, ReactNode, useState } from 'react';
+import styles from './PasswordInput.module.css';
 
 interface PasswordInputProps {
   className?: string;
