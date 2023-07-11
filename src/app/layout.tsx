@@ -1,7 +1,7 @@
 import { Header } from '@widgets';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
-import '@/shared/lib/normalize.css';
+import '@shared/lib/normalize.css';
 import './globals.css';
 import { Checker } from './Checker';
 import Loading from './loading';
