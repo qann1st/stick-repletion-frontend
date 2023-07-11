@@ -17,10 +17,12 @@ export const Header: FC = () => {
         <Flex className={styles.right}>
           <SearchInput />
           {user ? (
-            <Flex className={styles.profile}>
-              <p className={styles.name}>{user.username}</p>
-              <Avatar className={styles.avatar} />
-            </Flex>
+            <MyLink className={styles.profile_link} href={`/user/${user._id}`}>
+              <Flex className={styles.profile}>
+                <p className={styles.name}>{user.username}</p>
+                <Avatar className={styles.avatar} />
+              </Flex>
+            </MyLink>
           ) : (
             <Flex className={styles.buttons}>
               <MyLink href="/signin">

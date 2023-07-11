@@ -25,6 +25,7 @@
 
 .logo {
   transition: all 0.2s ease;
+  height: 36px;
 }
 
 .logo:hover {
@@ -47,15 +48,20 @@
   background-color: #2d2d2d;
 }
 
+.profile_link {
+  height: 100%;
+}
+
 .name {
   color: rgb(148, 148, 148);
   margin: 0;
+  font-size: 13px;
+  font-weight: 300;
 }
 
 @media (max-width: 550px) {
   .header {
     flex-direction: column;
     gap: 5px;
-    padding: 10px 0;
   }
 }
