@@ -16,7 +16,7 @@ export const MyLink: FC<LinkProps> = ({
   children,
   ...rest
 }) => (
-  <Link href={href} className={classNames(styles.link, className)} {...rest}>
+  <Link href={href} className={classNames(className, styles.link)} {...rest}>
     {children}
   </Link>
 );

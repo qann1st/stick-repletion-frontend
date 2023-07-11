@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import logo from '@/shared/images/logo.png';
+import logo from '@shared/images/logo.png';
 
 export const Logo = ({ className }: { className?: string }) => (
   <Image
