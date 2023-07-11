@@ -1,13 +1,14 @@
 'use client';
 import { Auth } from '@features';
 import { PasswordInput } from '@features';
+import { api } from '@shared/api';
 import { Button } from '@shared';
 import { Flex } from '@shared';
 import { Input } from '@shared';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import styles from './SignIn.module.css';
-import { IState, useStore, api } from '@shared/api';
+import { IState, useUserStore } from '@shared/store';
 import { useForm } from '@shared/hooks/useForm';
 
 export const SignIn = () => {
@@ -18,7 +19,8 @@ export const SignIn = () => {
     password: '',
   });
   const router = useRouter();
-  const user = useStore((state: IState) => state.user);
+  const user = useUserStore((state: IState) => state.user);
+  const setAccessToken = useUserStore((state: IState) => state.setAccessToken);
 
   useEffect(() => {
     if (user) {
@@ -32,6 +34,7 @@ export const SignIn = () => {
     setIsLoading(true);
     api
       .signIn({ email: values.email, password: values.password })
+      .then(res => setAccessToken(res.accessToken))
       .then(() => {
         router.push('/');
       })

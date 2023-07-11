@@ -1,16 +1,12 @@
 'use client';
-import { IState, useStore } from '@shared/store';
-import { SearchInput } from '@shared';
-import { Button } from '@shared';
-import { Flex } from '@shared';
-import { MyLink } from '@shared';
-import { Logo } from '@shared';
+import { Button, Flex, Logo, MyLink, SearchInput } from '@shared';
+import { IState, useUserStore } from '@shared/store';
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './Header.module.css';
 
 export const Header: FC = () => {
-  const user = useStore((state: IState) => state.user);
+  const user = useUserStore((state: IState) => state.user);
 
   return (
     <Flex
