@@ -2,7 +2,7 @@
 import { Flex } from '@shared';
 import styles from './QuestionsList.module.css';
 import { IQuestionsState, useQuestionsStore } from '@shared/store';
-import { Question } from '../../entities/Question';
+import { Question } from '@entities';
 
 export function QuestionsList() {
   const questions = useQuestionsStore(

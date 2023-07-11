@@ -29,6 +29,7 @@ export const Checker = ({ children }: { children: ReactNode }) => {
     } else {
       setIsLoading(false);
     }
+    // eslint-disable-next-line
   }, [storeToken]);
 
   if (isLoading) {

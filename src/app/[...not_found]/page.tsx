@@ -1,5 +1,11 @@
 import { Flex, MyLink, Typography } from '@shared';
-import React from 'react';
+import { Metadata } from 'next';
+
+export function generateMetadata(): Metadata {
+  return {
+    title: `Ошибка 404 | Stick Repletion`,
+  };
+}
 
 const NotFound = () => (
   <Flex

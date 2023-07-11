@@ -74,6 +74,10 @@ class Api {
   ): Promise<{ questions: IQuestion[]; pages: number | null }> {
     return this.fetch(`questions?page=${page}&limit=${15}`);
   }
+
+  public getQuestionById(id: string): Promise<IQuestion> {
+    return this.fetch(`questions/${id}`);
+  }
 }
 
 export const api = new Api(process.env.API_BASEURL ?? 'http://localhost:4000/');

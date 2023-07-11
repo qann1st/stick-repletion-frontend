@@ -6,6 +6,7 @@ import { Avatar } from '@shared/ui/Avatar';
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './Question.module.css';
+import { Tag } from '@shared';
 
 export const Question: FC<
   Pick<
@@ -29,17 +30,14 @@ export const Question: FC<
   }`;
 
   return (
-    <MyLink href={`/questions/${_id}`}>
+    <MyLink href={`/question/${_id}`}>
       <Flex className={styles.question} justify="space-between" as="article">
         <Flex direction="column" className={styles.left}>
           <Typography className={styles.heading} as="h3">
             {title}
           </Typography>
           <Flex className={styles.left_bottom} align="center">
-            <span className={styles.tag}>
-              {tags[0]}
-              <span className={styles.other_tags}>+{tags.length - 1}</span>
-            </span>
+            <Tag tags={tags} />
             <MyLink className={styles.link} href={`/user/${owner._id}`}>
               {owner.username}
             </MyLink>

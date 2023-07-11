@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import Loading from '../../app/loading';
 
-const DynamicMain = dynamic(() => import('./Main'), {
+const DynamicQuestion = dynamic(() => import('./Question'), {
   loading: () => <Loading />,
 });
 
-export const Main = () => <DynamicMain />;
+export const Question = () => <DynamicQuestion />;

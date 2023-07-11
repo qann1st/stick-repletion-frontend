@@ -84,17 +84,3 @@
 .right_time {
   color: rgb(148, 148, 148);
 }
-
-.tag {
-  background-color: #505050;
-  padding: 2px 0 2px 3px;
-  border-radius: 5px;
-}
-
-.other_tags {
-  background-color: rgb(45, 45, 45);
-  margin-left: 3px;
-  padding: 2px 3px 2px 2px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
