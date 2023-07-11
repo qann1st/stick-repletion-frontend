@@ -1,6 +1,6 @@
 'use client';
 
-import { IUser } from '../types';
+import { IQuestion, IUser } from '../types';
 
 type Methods = 'GET' | 'POST' | 'PUT' | 'DELETE';
 class Api {
@@ -67,6 +67,10 @@ class Api {
 
   public getUserMe(): Promise<IUser> {
     return this.fetch('users/me').then(res => res);
+  }
+
+  public getQuestions(page: number, limit: number): Promise<IQuestion[]> {
+    return this.fetch('questions', 'GET', { page, limit });
   }
 }
 

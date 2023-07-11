@@ -1,4 +1,4 @@
-import { SignUp } from '@/pagess/SignUp';
+import { SignUp } from '@pages';
 
 export const metadata = {
   title: 'Регистрация | Stick Repletion',

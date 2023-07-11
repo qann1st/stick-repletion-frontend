@@ -1,16 +1,12 @@
 'use client';
-import { Button } from '@/shared/ui/Button';
-import { Flex } from '@/shared/ui/Flex';
-import { MyLink } from '@/shared/ui/Link';
-import { Logo } from '@/shared/ui/Logo';
-import { FC, useEffect } from 'react';
+import { Button, Flex, Logo, MyLink, SearchInput } from '@shared';
+import { IState, useUserStore } from '@shared/store';
+import { FC } from 'react';
 import styles from './Header.module.css';
-import { SearchInput } from '@/shared/ui/SearchInput';
-import { IState, useStore } from '@/shared/store';
-import Image from 'next/image';
+import { Avatar } from '@shared/ui/Avatar';
 
 export const Header: FC = () => {
-  const user = useStore((state: IState) => state.user);
+  const user = useUserStore((state: IState) => state.user);
 
   return (
     <Flex
@@ -27,13 +23,7 @@ export const Header: FC = () => {
         {user ? (
           <Flex className={styles.profile}>
             <p className={styles.name}>{user.username}</p>
-            <Image
-              className={styles.avatar}
-              width={26}
-              height={26}
-              alt={user.username}
-              src={user.avatar}
-            />
+            <Avatar className={styles.avatar} />
           </Flex>
         ) : (
           <Flex className={styles.buttons}>

@@ -1,3 +1,5 @@
-const Home = () => <main></main>;
+import { Question } from '@entities';
+
+const Home = () => <Question />;
 
 export default Home;

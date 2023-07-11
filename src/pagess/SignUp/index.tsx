@@ -1,15 +1,13 @@
 'use client';
-import { Auth } from '@/features/Auth';
-import { PasswordInput } from '@/features/PasswordInput';
-import { api } from '@/shared/api';
-import { Button } from '@/shared/ui/Button';
-import { Flex } from '@/shared/ui/Flex';
-import { Input } from '@/shared/ui/Input';
+import { Auth, PasswordInput } from '@features';
+import { Button, Flex, Input } from '@shared';
+import { api } from '@shared/api';
+import { useForm } from '@shared/hooks/useForm';
+import { IState, useUserStore } from '@shared/store';
+import { IUser } from '@shared/types';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
-import { IState, useStore } from '@/shared/store';
-import { useForm } from '@/shared/hooks/useForm';
 
 export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +18,8 @@ export const SignUp = () => {
     password: '',
   });
   const router = useRouter();
-  const user = useStore((state: IState) => state.user);
+  const user = useUserStore((state: IState) => state.user);
+  const setAccessToken = useUserStore((state: IState) => state.setAccessToken);
 
   useEffect(() => {
     if (user) {
@@ -38,7 +37,7 @@ export const SignUp = () => {
         email: values.email,
         password: values.password,
       })
-      .then(res => localStorage.setItem('token', res.accessToken))
+      .then(res => setAccessToken(res.accessToken))
       .then(() => {
         router.push('/');
       })
