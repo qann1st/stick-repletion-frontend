@@ -34,7 +34,10 @@ export const SignIn = () => {
     setIsLoading(true);
     api
       .signIn({ email: values.email, password: values.password })
-      .then(res => setAccessToken(res.accessToken))
+      .then(res => {
+        localStorage.setItem('token', res.accessToken);
+        setAccessToken(res.accessToken);
+      })
       .then(() => {
         router.push('/');
       })

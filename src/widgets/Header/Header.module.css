@@ -60,8 +60,16 @@
 }
 
 @media (max-width: 550px) {
-  .header {
+  .wrapper {
     flex-direction: column;
     gap: 5px;
+  }
+}
+
+@media (max-width: 550px) {
+  .right {
+    flex-direction: column;
+    gap: 5px;
+    padding: 7px 0;
   }
 }

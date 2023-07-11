@@ -20,8 +20,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
     </head>
     <body className={inter.className}>
       <Checker>
-        <Header />
         <Suspense fallback={<Loading />}>
+          <Header />
           <main className="main">{children}</main>
         </Suspense>
       </Checker>

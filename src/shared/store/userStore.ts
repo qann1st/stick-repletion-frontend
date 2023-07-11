@@ -10,9 +10,8 @@ export interface IState {
 
 export const useUserStore = create<IState>()(set => ({
   user: null,
-  accessToken: localStorage.getItem('token') ?? '',
+  accessToken: '',
   setAccessToken: token => {
-    localStorage.setItem('token', token);
     set(() => ({ accessToken: token }));
   },
   setUser: user => set(() => ({ user: user })),
