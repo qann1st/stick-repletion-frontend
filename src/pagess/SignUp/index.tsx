@@ -1,15 +1,15 @@
 'use client';
-import { Auth } from '@/features/Auth';
-import { PasswordInput } from '@/features/PasswordInput';
-import { api } from '@/shared/api';
-import { Button } from '@/shared/ui/Button';
-import { Flex } from '@/shared/ui/Flex';
-import { Input } from '@/shared/ui/Input';
+import { Auth } from '@features';
+import { PasswordInput } from '@features';
+import { api } from '@shared/api';
+import { Button } from '@shared/ui/Button';
+import { Flex } from '@shared/ui/Flex';
+import { Input } from '@shared/ui/Input';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
-import { IState, useStore } from '@/shared/store';
-import { useForm } from '@/shared/hooks/useForm';
+import { IState, useStore } from '@shared/store';
+import { useForm } from '@shared/hooks/useForm';
 
 export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);

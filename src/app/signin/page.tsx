@@ -1,4 +1,4 @@
-import { SignIn } from '@/pagess/SignIn';
+import { SignIn } from '@pages';
 
 export const metadata = {
   title: 'Авторизация | Stick Repletion',

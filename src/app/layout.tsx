@@ -1,4 +1,4 @@
-import { Header } from '@/widgets/Header';
+import { Header } from '@widgets';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import '@/shared/lib/normalize.css';

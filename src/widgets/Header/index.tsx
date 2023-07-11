@@ -1,13 +1,13 @@
 'use client';
-import { Button } from '@/shared/ui/Button';
-import { Flex } from '@/shared/ui/Flex';
-import { MyLink } from '@/shared/ui/Link';
-import { Logo } from '@/shared/ui/Logo';
-import { FC, useEffect } from 'react';
-import styles from './Header.module.css';
-import { SearchInput } from '@/shared/ui/SearchInput';
-import { IState, useStore } from '@/shared/store';
+import { IState, useStore } from '@shared/store';
+import { SearchInput } from '@shared/ui/SearchInput';
+import { Button } from '@shared/ui/Button';
+import { Flex } from '@shared/ui/Flex';
+import { MyLink } from '@shared/ui/Link';
+import { Logo } from '@shared/ui/Logo';
 import Image from 'next/image';
+import { FC } from 'react';
+import styles from './Header.module.css';
 
 export const Header: FC = () => {
   const user = useStore((state: IState) => state.user);
