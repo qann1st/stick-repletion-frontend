@@ -33,9 +33,7 @@ export const Question: FC<
     <MyLink href={`/question/${_id}`}>
       <Flex className={styles.question} justify="space-between" as="article">
         <Flex direction="column" className={styles.left}>
-          <Typography className={styles.heading} as="h3">
-            {title}
-          </Typography>
+          <h3 className={styles.heading}>{title}</h3>
           <Flex className={styles.left_bottom} align="center">
             <Tag tags={tags} />
             <MyLink className={styles.link} href={`/user/${owner._id}`}>
@@ -52,19 +50,14 @@ export const Question: FC<
               <p className={styles.ico_text}>{answers ? answers.length : 0}</p>
             </Flex>
             <Flex className={styles.icons}>
-              <Image
-                className={styles.ico}
-                width={12}
-                src={like}
-                alt="Комментарии"
-              />
+              <Image className={styles.ico} width={12} src={like} alt="Лайки" />
               <p className={styles.ico_text}>{rating.length}</p>
             </Flex>
           </Flex>
         </Flex>
         <Flex align="center" className={styles.right}>
           <MyLink href={`/user/${owner._id}`}>
-            <Avatar width={40} height={40} />
+            <Avatar width={40} height={40} src={owner.avatar} />
           </MyLink>
           <Flex direction="column">
             <MyLink className={styles.right_link} href={`/user/${owner._id}`}>

@@ -7,3 +7,4 @@ export { MyLink } from './ui/Link';
 export { Tag } from './ui/Tag';
 export { SearchInput } from './ui/SearchInput';
 export { Typography } from './ui/Typography';
+export { CodeBlock } from './ui/CodeBlock';

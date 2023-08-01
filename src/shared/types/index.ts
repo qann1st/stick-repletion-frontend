@@ -21,7 +21,7 @@ export interface IQuestion {
   problem: string;
   attemptsFix: string;
   answers: IAnswer[];
-  rating: { _id: MongoId }[];
+  rating: IUser[];
   tags: string[];
   createTimestamp: Date;
   _id: MongoId;

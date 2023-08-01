@@ -2,36 +2,25 @@
 import { useEffect, useState } from 'react';
 import styles from './Main.module.css';
 import { QuestionsList } from '../../widgets/QuestionsList';
-import { api } from '@shared/api';
 import { IQuestionsState, useQuestionsStore } from '@shared/store';
-import { IQuestion } from '@shared/types';
+import { shallow } from 'zustand/shallow';
 
 const Main = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [fetching, setFetching] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
-  const setQuestions = useQuestionsStore(
-    (state: IQuestionsState) => state.setQuestions
-  );
+  const [fetching, currentPage, totalCount, setQuestions, addQuestions] =
+    useQuestionsStore(
+      (state: IQuestionsState) => [
+        state.fetching,
+        state.currentPage,
+        state.totalCount,
+        state.getQuestions,
+        state.addQuestions,
+      ],
+      shallow
+    );
 
   useEffect(() => {
     if (fetching) {
-      api
-        .getQuestions(currentPage)
-        .then(
-          ({
-            questions,
-            pages,
-          }: {
-            questions: IQuestion[];
-            pages: number | null;
-          }) => {
-            setQuestions(questions);
-            setCurrentPage(prev => prev++);
-            setTotalCount(pages ? pages : 0);
-          }
-        )
-        .finally(() => setFetching(false));
+      setQuestions();
     }
     // eslint-disable-next-line
   }, [fetching]);
@@ -50,7 +39,7 @@ const Main = () => {
         100 &&
       currentPage < totalCount
     ) {
-      setFetching(true);
+      addQuestions();
     }
   };
 

@@ -66,7 +66,10 @@ const SignIn = () => {
         noValidate
       >
         <Input
-          onChange={onChange}
+          onChange={e => {
+            onChange(e);
+            setError('');
+          }}
           isValid={isValid}
           type="email"
           name="email"
@@ -81,7 +84,10 @@ const SignIn = () => {
           minLength={6}
           maxLength={32}
           required
-          onChange={onChange}
+          onChange={e => {
+            onChange(e);
+            setError('');
+          }}
         />
         <Button disabled={!isValid} type="submit">
           {isLoading ? 'Загрузка...' : 'Вход'}

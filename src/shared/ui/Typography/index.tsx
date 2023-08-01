@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, ReactNode } from 'react';
+import { CSSProperties, FC, ReactNode } from 'react';
 import styles from './Typograpghy.module.css';
 
 interface TypographyProps {
@@ -7,22 +7,23 @@ interface TypographyProps {
   variant?: 'h1' | 'h2' | 'h3' | 'h4';
   className?: string;
   children?: ReactNode;
+  style?: CSSProperties;
 }
 
 export const Typography: FC<TypographyProps> = ({
   as: C = 'h1',
-  variant,
+  variant = 'h3',
   className,
   children,
+  style,
 }) => (
   <C
     className={classNames(
       styles.typography,
-      styles[
-        'typography_variant_' + (variant ? variant : typeof C === 'string' && C)
-      ],
-      className
+      className,
+      styles['typography_variant_' + variant]
     )}
+    style={style}
   >
     {children}
   </C>

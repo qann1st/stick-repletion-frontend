@@ -71,12 +71,20 @@ class Api {
 
   public getQuestions(
     page: number
-  ): Promise<{ questions: IQuestion[]; pages: number | null }> {
+  ): Promise<{ questions: IQuestion[]; pages: number }> {
     return this.fetch(`questions?page=${page}&limit=${15}`);
   }
 
   public getQuestionById(id: string): Promise<IQuestion> {
     return this.fetch(`questions/${id}`);
+  }
+
+  public upRating(id: string): Promise<IQuestion> {
+    return this.fetch(`questions/rating/${id}`, 'PUT');
+  }
+
+  public async downRating(id: string): Promise<IQuestion> {
+    return this.fetch(`questions/rating/${id}`, 'DELETE');
   }
 }
 
