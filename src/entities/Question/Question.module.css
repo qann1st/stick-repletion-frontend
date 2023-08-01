@@ -16,6 +16,13 @@
 .heading {
   font-size: 14px;
   font-weight: bold;
+  text-overflow: ellipsis;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .left {
@@ -59,7 +66,12 @@
 
 .right {
   gap: 10px;
+  width: 224px;
   padding-right: 11px;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 }
 
 .right_link {

@@ -1,8 +1,8 @@
 'use client';
-import { Flex } from '@/shared/ui/Flex';
-import { MyLink } from '@/shared/ui/Link';
-import { Logo } from '@/shared/ui/Logo';
-import { Typography } from '@/shared/ui/Typography';
+import { Flex } from '@shared';
+import { MyLink } from '@shared';
+import { Logo } from '@shared';
+import { Typography } from '@shared';
 import { FC, ReactNode } from 'react';
 import styles from './Auth.module.css';
 

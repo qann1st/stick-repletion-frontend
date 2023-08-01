@@ -1,0 +1,23 @@
+.tag {
+  background-color: #505050;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tag_p {
+  max-width: 70px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 3px;
+}
+
+.other_tags {
+  background-color: rgb(45, 45, 45);
+  padding: 2px 3px 2px 2px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

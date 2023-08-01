@@ -69,8 +69,22 @@ class Api {
     return this.fetch('users/me').then(res => res);
   }
 
-  public getQuestions(page: number, limit: number): Promise<IQuestion[]> {
-    return this.fetch('questions', 'GET', { page, limit });
+  public getQuestions(
+    page: number
+  ): Promise<{ questions: IQuestion[]; pages: number }> {
+    return this.fetch(`questions?page=${page}&limit=${15}`);
+  }
+
+  public getQuestionById(id: string): Promise<IQuestion> {
+    return this.fetch(`questions/${id}`);
+  }
+
+  public upRating(id: string): Promise<IQuestion> {
+    return this.fetch(`questions/rating/${id}`, 'PUT');
+  }
+
+  public async downRating(id: string): Promise<IQuestion> {
+    return this.fetch(`questions/rating/${id}`, 'DELETE');
   }
 }
 

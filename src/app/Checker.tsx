@@ -7,10 +7,14 @@ import Loading from './loading';
 export const Checker = ({ children }: { children: ReactNode }) => {
   const setUser = useUserStore((state: IState) => state.setUser);
   const [isLoading, setIsLoading] = useState(true);
-  const token = useUserStore((state: IState) => state.accessToken);
+  const storeToken = useUserStore((state: IState) => state.accessToken);
+  const setAccessToken = useUserStore((state: IState) => state.setAccessToken);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     if (token && token !== 'undefined') {
+      setAccessToken(token);
       api.setToken(token);
       api
         .getUserMe()
@@ -18,13 +22,15 @@ export const Checker = ({ children }: { children: ReactNode }) => {
           setUser(res);
         })
         .catch(err => {
-          console.log(err);
+          console.error();
+          err;
         })
         .finally(() => setIsLoading(false));
     } else {
       setIsLoading(false);
     }
-  }, [token]);
+    // eslint-disable-next-line
+  }, [storeToken]);
 
   if (isLoading) {
     return <Loading />;
