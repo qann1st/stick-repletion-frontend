@@ -1,40 +1,100 @@
 'use client';
-import { Button, Flex, Logo, MyLink, SearchInput } from '@shared';
-import { IState, useUserStore } from '@shared/store';
-import { FC } from 'react';
+
+import {
+  Input,
+  Link,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from '@nextui-org/react';
+import { Logo } from '@shared';
+import { api } from '@shared/api';
+import { useUserStore } from '@shared/store';
+import { FC, FormEvent, useRef } from 'react';
+import UserLink from '../../features/UserLink';
 import styles from './Header.module.css';
-import { Avatar } from '@shared/ui/Avatar';
+import { useRouter } from 'next/navigation';
+import { SearchIcon } from '@shared/images/SearchIcon';
 
 export const Header: FC = () => {
-  const user = useUserStore((state: IState) => state.user);
+  const [user, setUser, setAccessToken] = useUserStore(state => [
+    state.user,
+    state.setUser,
+    state.setAccessToken,
+  ]);
+  const router = useRouter();
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchRef.current) {
+      router.push(`/search?search=${searchRef.current.value}`);
+    }
+  };
 
   return (
-    <Flex as="header" className={styles.header}>
-      <Flex className={styles.wrapper} align="center" justify="space-between">
-        <MyLink className={styles.logo} href="/">
+    <Navbar position="sticky">
+      <NavbarContent className="sm:hidden" justify="start">
+        <NavbarMenuToggle />
+      </NavbarContent>
+      <NavbarBrand>
+        <Link className={(styles.logo, 'sl:hidden sm:block')} href="/">
           <Logo />
-        </MyLink>
-        <Flex className={styles.right}>
-          <SearchInput />
-          {user ? (
-            <MyLink className={styles.profile_link} href={`/user/${user._id}`}>
-              <Flex className={styles.profile}>
-                <p className={styles.name}>{user.username}</p>
-                <Avatar className={styles.avatar} />
-              </Flex>
-            </MyLink>
-          ) : (
-            <Flex className={styles.buttons}>
-              <MyLink href="/signin">
-                <Button>Войти</Button>
-              </MyLink>
-              <MyLink href="/signup">
-                <Button variant="ghost">Создать аккаунт</Button>
-              </MyLink>
-            </Flex>
+        </Link>
+      </NavbarBrand>
+      <NavbarContent justify="center">
+        <NavbarItem>
+          <form onSubmit={handleSubmit}>
+            <Input
+              variant="bordered"
+              type="search"
+              placeholder="Поиск..."
+              startContent={<SearchIcon />}
+              ref={searchRef}
+            />
+          </form>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent className="sl:hidden sm:flex" justify="end">
+        <NavbarItem>
+          <UserLink />
+        </NavbarItem>
+      </NavbarContent>
+
+      <NavbarMenu className="sl:hidden sm:hidden">
+        <NavbarMenuItem>
+          <Link className="w-full" color="foreground" href="/" size="lg">
+            Главная страница
+          </Link>
+          {user && (
+            <Link
+              className="w-full"
+              color="foreground"
+              href={`/user/${user._id}`}
+              size="lg"
+            >
+              Профиль
+            </Link>
           )}
-        </Flex>
-      </Flex>
-    </Flex>
+          <Link className="w-full" color="danger" size="lg">
+            <button
+              onClick={() => {
+                localStorage.removeItem('token');
+                router.push('/');
+                setUser(null);
+                setAccessToken('');
+                api.setToken('');
+              }}
+            >
+              Выйти
+            </button>
+          </Link>
+        </NavbarMenuItem>
+      </NavbarMenu>
+    </Navbar>
   );
 };

@@ -22,8 +22,7 @@ export const Checker = ({ children }: { children: ReactNode }) => {
           setUser(res);
         })
         .catch(err => {
-          console.error();
-          err;
+          console.error(err);
         })
         .finally(() => setIsLoading(false));
     } else {

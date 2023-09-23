@@ -1,5 +1,6 @@
 .rating {
   gap: 10px;
+  margin-top: 15px;
 }
 
 .rating_text {
@@ -8,14 +9,24 @@
 
 .circle {
   border: 2px solid #626a72;
+  background-color: transparent;
   border-radius: 50%;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .circle:hover {
   cursor: pointer;
+  background-color: #2bad72;
+}
+
+.circle:disabled {
+  cursor: not-allowed;
+}
+
+.hovered {
   background-color: #2bad72;
 }

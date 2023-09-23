@@ -1,6 +1,6 @@
 'use client';
+import { stringToColor } from '@shared/hooks/useStringToColor';
 import { IState, useUserStore } from '@shared/store';
-import Image from 'next/image';
 import { FC } from 'react';
 import styles from './Avatar.module.css';
 import classNames from 'classnames';
@@ -9,24 +9,25 @@ interface AvatarProps {
   width?: number;
   height?: number;
   className?: string;
-  src?: string;
+  username?: string;
+  fontSize?: number;
 }
 
 export const Avatar: FC<AvatarProps> = ({
   width = 29,
   height = 29,
   className,
-  src,
+  username,
+  fontSize,
 }) => {
-  const user = useUserStore((state: IState) => state.user);
+  const color = username && stringToColor(username);
 
   return (
-    <Image
-      className={classNames(className, styles.avatar)}
-      width={width}
-      height={height}
-      src={user ? user.avatar : src ? src : ''}
-      alt={user ? user.username : 'Аватар пользователя'}
-    />
+    <div
+      className={classNames(styles.avatar, className)}
+      style={{ backgroundColor: `${color}`, width, height }}
+    >
+      <p style={{ fontSize: fontSize + 'px' }}>{username?.slice(0, 1)}</p>
+    </div>
   );
 };

@@ -1,5 +1,4 @@
 'use client';
-import { Flex } from '@shared';
 import styles from './QuestionsList.module.css';
 import { IQuestionsState, useQuestionsStore } from '@shared/store';
 import { Question } from '@entities';
@@ -10,19 +9,26 @@ export function QuestionsList() {
   );
 
   return (
-    <Flex direction="column" className={styles.questions} as="section">
-      {questions.map(question => (
-        <Question
-          _id={question._id}
-          rating={question.rating}
-          createTimestamp={question.createTimestamp}
-          tags={question.tags}
-          owner={question.owner}
-          title={question.title}
-          answers={question.answers}
-          key={question._id}
-        />
-      ))}
-    </Flex>
+    <section className="flex flex-col">
+      {questions.length ? (
+        questions.map((question, i) => (
+          <Question
+            _id={question._id}
+            createTimestamp={question.createTimestamp}
+            tags={question.tags}
+            owner={question.owner}
+            title={question.title}
+            answers={question.answers}
+            likes={question.likes}
+            dislikes={question.dislikes}
+            key={question._id}
+          />
+        ))
+      ) : (
+        <section className="flex justify-center">
+          <p>Сейчас вопросов нет, но вы можете задать его!</p>
+        </section>
+      )}
+    </section>
   );
 }
