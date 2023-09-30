@@ -21,14 +21,12 @@ export const Avatar: FC<AvatarProps> = ({
   const user = useUserStore((state: IState) => state.user);
 
   return (
-    user && (
-      <Image
-        className={classNames(className, styles.avatar)}
-        width={width}
-        height={height}
-        src={src ? user.avatar : user.avatar}
-        alt={user.username}
-      />
-    )
+    <Image
+      className={classNames(className, styles.avatar)}
+      width={width}
+      height={height}
+      src={user ? user.avatar : src ? src : ''}
+      alt={user ? user.username : 'Аватар пользователя'}
+    />
   );
 };
