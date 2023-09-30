@@ -5,7 +5,7 @@ export interface IState {
   user: IUser | null;
   accessToken: string;
   setAccessToken: (token: string) => void;
-  setUser: (user: IUser) => void;
+  setUser: (user: IUser | null) => void;
 }
 
 export const useUserStore = create<IState>()(set => ({

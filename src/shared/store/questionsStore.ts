@@ -21,7 +21,7 @@ export const useQuestionsStore = create<IState>()((set, get) => ({
     const questionsGet = await api.getQuestions(currentPage);
     set(() => ({
       questions: questionsGet.questions,
-      totalCount: questionsGet.pages,
+      totalCount: questionsGet.totalCount,
       fetching: false,
     }));
   },

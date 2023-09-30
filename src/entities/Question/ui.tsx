@@ -1,25 +1,36 @@
-import { Flex, MyLink, Typography } from '@shared';
+import { Card, CardBody, Link } from '@nextui-org/react';
+import { Tag } from '@shared';
 import comment from '@shared/images/comment.png';
-import like from '@shared/images/heart.png';
+import like from '@shared/images/like.png';
 import { IQuestion, Months } from '@shared/types';
 import { Avatar } from '@shared/ui/Avatar';
+import { MyLink } from '@shared/ui/MyLink';
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './Question.module.css';
-import { Tag } from '@shared';
 
 export const Question: FC<
   Pick<
     IQuestion,
     | '_id'
     | 'tags'
-    | 'rating'
+    | 'likes'
+    | 'dislikes'
     | 'title'
     | 'createTimestamp'
     | 'owner'
     | 'answers'
   >
-> = ({ _id, tags, title, owner, answers, rating, createTimestamp }) => {
+> = ({
+  _id,
+  tags,
+  title,
+  owner,
+  answers,
+  likes,
+  dislikes,
+  createTimestamp,
+}) => {
   const date = new Date(createTimestamp);
   const rtf = `${date.getDate()} ${
     Months[date.getMonth() + 1]
@@ -30,43 +41,70 @@ export const Question: FC<
   }`;
 
   return (
-    <MyLink href={`/question/${_id}`}>
-      <Flex className={styles.question} justify="space-between" as="article">
-        <Flex direction="column" className={styles.left}>
-          <h3 className={styles.heading}>{title}</h3>
-          <Flex className={styles.left_bottom} align="center">
-            <Tag tags={tags} />
-            <MyLink className={styles.link} href={`/user/${owner._id}`}>
-              {owner.username}
-            </MyLink>
-            <span className={styles.dot} />
-            <Flex className={styles.icons}>
-              <Image
-                className={styles.ico}
-                width={12}
-                src={comment}
-                alt="Комментарии"
+    <MyLink color="foreground" href={`/question/${_id}`}>
+      <Card className="max-w-1xl w-full">
+        <CardBody
+          className="flex flex-row items-center md:gap-36 
+          sl:gap-2 overflow-hidden whitespace-nowrap text-ellipsis"
+        >
+          <div className="flex flex-col gap-3">
+            <h3 className="text-sm font-bold">{title}</h3>
+            <div className="flex items-center gap-2">
+              <Tag tags={tags} />
+              <Link
+                color="foreground"
+                className="text-sm text-gray-400"
+                href={`/user/${owner._id}`}
+              >
+                {owner.username}
+              </Link>
+              <span className="w-1 h-1 bg-blue-600 inline-block rounded-full" />
+              <div className="flex items-center">
+                <Image
+                  className={styles.ico}
+                  width={12}
+                  src={comment}
+                  alt="Комментарии"
+                />
+                <p className="text-sm text-gray-400 pl-0.5">
+                  {answers ? answers.length : 0}
+                </p>
+              </div>
+              <div className="flex items-center">
+                <Image
+                  className={styles.ico}
+                  width={12}
+                  src={like}
+                  alt="Лайки"
+                />
+                <p className="text-sm text-gray-400 pl-0.5">
+                  {likes.length - dislikes.length}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row gap-3 sl:hidden ss:flex">
+            <Link color="foreground" href={`/user/${owner._id}`}>
+              <Avatar
+                width={40}
+                height={40}
+                fontSize={20}
+                username={owner.username}
               />
-              <p className={styles.ico_text}>{answers ? answers.length : 0}</p>
-            </Flex>
-            <Flex className={styles.icons}>
-              <Image className={styles.ico} width={12} src={like} alt="Лайки" />
-              <p className={styles.ico_text}>{rating.length}</p>
-            </Flex>
-          </Flex>
-        </Flex>
-        <Flex align="center" className={styles.right}>
-          <MyLink href={`/user/${owner._id}`}>
-            <Avatar width={40} height={40} src={owner.avatar} />
-          </MyLink>
-          <Flex direction="column">
-            <MyLink className={styles.right_link} href={`/user/${owner._id}`}>
-              {owner.username}
-            </MyLink>
-            <p className={styles.right_time}>{rtf}</p>
-          </Flex>
-        </Flex>
-      </Flex>
+            </Link>
+            <div className="flex flex-col">
+              <Link
+                color="foreground"
+                className="text-sm"
+                href={`/user/${owner._id}`}
+              >
+                {owner.username}
+              </Link>
+              <p className="text-sm text-gray-400">{rtf}</p>
+            </div>
+          </div>
+        </CardBody>
+      </Card>
     </MyLink>
   );
 };
