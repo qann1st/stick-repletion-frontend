@@ -14,6 +14,7 @@ module.exports = {
   theme: {
     screens: {
       sl: '320px',
+      ss: '580px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -22,6 +23,7 @@ module.exports = {
     extend: {
       maxWidth: {
         'text-tag': '70px',
+        card: '600px',
       },
     },
   },

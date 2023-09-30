@@ -14,11 +14,13 @@ import {
 import { Logo } from '@shared';
 import { api } from '@shared/api';
 import { useUserStore } from '@shared/store';
-import { FC, FormEvent, useRef } from 'react';
+import { FC, FormEvent, useRef, useState } from 'react';
 import UserLink from '../../features/UserLink';
 import styles from './Header.module.css';
 import { useRouter } from 'next/navigation';
 import { SearchIcon } from '@shared/images/SearchIcon';
+import NextLink from 'next/link';
+import { MyLink } from '@shared/ui/MyLink';
 
 export const Header: FC = () => {
   const [user, setUser, setAccessToken] = useUserStore(state => [
@@ -28,6 +30,7 @@ export const Header: FC = () => {
   ]);
   const router = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,14 +40,18 @@ export const Header: FC = () => {
   };
 
   return (
-    <Navbar position="sticky">
+    <Navbar
+      position="sticky"
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+    >
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle />
       </NavbarContent>
       <NavbarBrand>
-        <Link className={(styles.logo, 'sl:hidden sm:block')} href="/">
+        <MyLink className={(styles.logo, 'sl:hidden sm:block')} href="/">
           <Logo />
-        </Link>
+        </MyLink>
       </NavbarBrand>
       <NavbarContent justify="center">
         <NavbarItem>
@@ -67,20 +74,31 @@ export const Header: FC = () => {
 
       <NavbarMenu className="sl:hidden sm:hidden">
         <NavbarMenuItem>
-          <Link className="w-full" color="foreground" href="/" size="lg">
+          <MyLink
+            onClick={() => setIsMenuOpen(false)}
+            className="w-full"
+            href="/"
+            size="lg"
+          >
             Главная страница
-          </Link>
+          </MyLink>
           {user && (
-            <Link
+            <MyLink
+              onClick={() => setIsMenuOpen(false)}
               className="w-full"
-              color="foreground"
               href={`/user/${user._id}`}
               size="lg"
             >
               Профиль
-            </Link>
+            </MyLink>
           )}
-          <Link className="w-full" color="danger" size="lg">
+          <MyLink
+            onClick={() => setIsMenuOpen(false)}
+            className="w-full"
+            href="/"
+            color="danger"
+            size="lg"
+          >
             <button
               onClick={() => {
                 localStorage.removeItem('token');
@@ -92,7 +110,7 @@ export const Header: FC = () => {
             >
               Выйти
             </button>
-          </Link>
+          </MyLink>
         </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>

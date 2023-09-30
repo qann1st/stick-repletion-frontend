@@ -24,7 +24,10 @@ export const Avatar: FC<AvatarProps> = ({
 
   return (
     <div
-      className={classNames(styles.avatar, className)}
+      className={classNames(
+        'flex justify-center items-center rounded-full',
+        className
+      )}
       style={{ backgroundColor: `${color}`, width, height }}
     >
       <p style={{ fontSize: fontSize + 'px' }}>{username?.slice(0, 1)}</p>

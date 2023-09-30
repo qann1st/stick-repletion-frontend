@@ -7,6 +7,7 @@ import Loading from './loading';
 export const Checker = ({ children }: { children: ReactNode }) => {
   const setUser = useUserStore((state: IState) => state.setUser);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
   const storeToken = useUserStore((state: IState) => state.accessToken);
   const setAccessToken = useUserStore((state: IState) => state.setAccessToken);
 
@@ -22,7 +23,7 @@ export const Checker = ({ children }: { children: ReactNode }) => {
           setUser(res);
         })
         .catch(err => {
-          console.error(err);
+          setError(err);
         })
         .finally(() => setIsLoading(false));
     } else {
@@ -30,6 +31,10 @@ export const Checker = ({ children }: { children: ReactNode }) => {
     }
     // eslint-disable-next-line
   }, [storeToken]);
+
+  if (error) {
+    return <h1>Произошла ошибка: {error}</h1>;
+  }
 
   if (isLoading) {
     return <Loading />;

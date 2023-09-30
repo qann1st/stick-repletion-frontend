@@ -9,7 +9,7 @@ export function QuestionsList() {
   );
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col gap-1 p-10 rounded-md h-max">
       {questions.length ? (
         questions.map((question, i) => (
           <Question

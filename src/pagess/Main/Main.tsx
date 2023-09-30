@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { QuestionsList } from '../../widgets/QuestionsList';
 import { IQuestionsState, useQuestionsStore } from '@shared/store';
+import Loading from '../../app/loading';
 
 const Main = () => {
   const [questions, fetching, totalCount, getQuestions, addQuestions] =
@@ -42,7 +43,7 @@ const Main = () => {
     }
   };
 
-  return <QuestionsList />;
+  return fetching ? <Loading /> : <QuestionsList />;
 };
 
 export default Main;

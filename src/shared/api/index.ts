@@ -1,6 +1,6 @@
 'use client';
 
-import { IQuestion, IUser } from '../types';
+import { IAnswer, IQuestion, IUser } from '../types';
 
 type Methods = 'GET' | 'POST' | 'PUT' | 'DELETE';
 class Api {
@@ -79,6 +79,10 @@ class Api {
     return this.fetch(`questions/${id}`);
   }
 
+  public createAnswer(_id: string, answer: string): Promise<IAnswer> {
+    return this.fetch(`answers`, 'POST', { answer, _id });
+  }
+
   public upRating(
     id: string
   ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
@@ -89,6 +93,18 @@ class Api {
     id: string
   ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
     return this.fetch(`questions/rating/down/${id}`, 'PUT');
+  }
+
+  public upAnswerRating(
+    id: string
+  ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
+    return this.fetch(`answers/rating/up/${id}`, 'PUT');
+  }
+
+  public async cancelAnswerRating(
+    id: string
+  ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
+    return this.fetch(`answers/rating/down/${id}`, 'PUT');
   }
 }
 

@@ -1,13 +1,13 @@
-import { Card, CardBody, CardHeader, Link } from '@nextui-org/react';
+import { Card, CardBody, Link } from '@nextui-org/react';
 import { Tag } from '@shared';
 import comment from '@shared/images/comment.png';
 import like from '@shared/images/like.png';
 import { IQuestion, Months } from '@shared/types';
 import { Avatar } from '@shared/ui/Avatar';
+import { MyLink } from '@shared/ui/MyLink';
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './Question.module.css';
-import classNames from 'classnames';
 
 export const Question: FC<
   Pick<
@@ -41,9 +41,12 @@ export const Question: FC<
   }`;
 
   return (
-    <Link color="foreground" href={`/question/${_id}`}>
-      <Card>
-        <CardBody className="flex flex-row items-center gap-24">
+    <MyLink color="foreground" href={`/question/${_id}`}>
+      <Card className="max-w-1xl w-full">
+        <CardBody
+          className="flex flex-row items-center md:gap-36 
+          sl:gap-2 overflow-hidden whitespace-nowrap text-ellipsis"
+        >
           <div className="flex flex-col gap-3">
             <h3 className="text-sm font-bold">{title}</h3>
             <div className="flex items-center gap-2">
@@ -55,7 +58,7 @@ export const Question: FC<
               >
                 {owner.username}
               </Link>
-              <span className={styles.dot} />
+              <span className="w-1 h-1 bg-blue-600 inline-block rounded-full" />
               <div className="flex items-center">
                 <Image
                   className={styles.ico}
@@ -80,7 +83,7 @@ export const Question: FC<
               </div>
             </div>
           </div>
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-row gap-3 sl:hidden ss:flex">
             <Link color="foreground" href={`/user/${owner._id}`}>
               <Avatar
                 width={40}
@@ -102,6 +105,6 @@ export const Question: FC<
           </div>
         </CardBody>
       </Card>
-    </Link>
+    </MyLink>
   );
 };

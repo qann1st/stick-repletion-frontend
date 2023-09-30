@@ -1,18 +1,19 @@
 'use client';
-import { Flex } from '@shared';
 import { api } from '@shared/api';
 import { IState, useUserStore } from '@shared/store';
-import { IQuestion } from '@shared/types';
+import { IAnswer, IQuestion } from '@shared/types';
 import { Arrow } from '@shared/ui/Arrow';
 import classNames from 'classnames';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import styles from './Rating.module.css';
 
 interface IRatingProps {
-  question: IQuestion;
+  question: IQuestion | IAnswer;
+  className?: string;
+  isAnswer?: boolean;
 }
 
-export const Rating: FC<IRatingProps> = ({ question }) => {
+export const Rating: FC<IRatingProps> = ({ question, className, isAnswer }) => {
   const user = useUserStore((state: IState) => state.user);
 
   const [currentRating, setCurrentRating] = useState(
@@ -32,19 +33,36 @@ export const Rating: FC<IRatingProps> = ({ question }) => {
       setCurrentRating(prev => prev + 1);
       setIsLiked(true);
       setIsDisliked(false);
-      api
-        .upRating(question._id)
-        .then(rating => {
-          setIsLiked(user && rating.likes.includes(user._id));
-          setIsDisliked(user && rating.dislikes.includes(user._id));
-          setCurrentRating(rating.rating);
-        })
-        .catch(err => {
-          setCurrentRating(prev => prev - 1);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
+      if (isAnswer) {
+        api
+          .upAnswerRating(question._id)
+          .then(rating => {
+            console.log('add');
+            setIsLiked(user && rating.likes.includes(user._id));
+            setIsDisliked(user && rating.dislikes.includes(user._id));
+            setCurrentRating(rating.rating);
+          })
+          .catch(err => {
+            setCurrentRating(prev => prev - 1);
+          })
+          .finally(() => {
+            setIsFetching(false);
+          });
+      } else {
+        api
+          .upRating(question._id)
+          .then(rating => {
+            setIsLiked(user && rating.likes.includes(user._id));
+            setIsDisliked(user && rating.dislikes.includes(user._id));
+            setCurrentRating(rating.rating);
+          })
+          .catch(err => {
+            setCurrentRating(prev => prev - 1);
+          })
+          .finally(() => {
+            setIsFetching(false);
+          });
+      }
     }
   };
 
@@ -54,24 +72,40 @@ export const Rating: FC<IRatingProps> = ({ question }) => {
       setCurrentRating(prev => prev - 1);
       setIsLiked(false);
       setIsDisliked(true);
-      api
-        .cancelRating(question._id)
-        .then(rating => {
-          setIsLiked(user && rating.likes.includes(user._id));
-          setIsDisliked(user && rating.dislikes.includes(user._id));
-          setCurrentRating(rating.rating);
-        })
-        .catch(err => {
-          setCurrentRating(prev => prev + 1);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
+      if (isAnswer) {
+        api
+          .cancelAnswerRating(question._id)
+          .then(rating => {
+            setIsLiked(user && rating.likes.includes(user._id));
+            setIsDisliked(user && rating.dislikes.includes(user._id));
+            setCurrentRating(rating.rating);
+          })
+          .catch(err => {
+            setCurrentRating(prev => prev + 1);
+          })
+          .finally(() => {
+            setIsFetching(false);
+          });
+      } else {
+        api
+          .cancelRating(question._id)
+          .then(rating => {
+            setIsLiked(user && rating.likes.includes(user._id));
+            setIsDisliked(user && rating.dislikes.includes(user._id));
+            setCurrentRating(rating.rating);
+          })
+          .catch(err => {
+            setCurrentRating(prev => prev + 1);
+          })
+          .finally(() => {
+            setIsFetching(false);
+          });
+      }
     }
   };
 
   return (
-    <Flex direction="column" align="center" className={styles.rating}>
+    <div className={classNames('flex items-center', className)}>
       <button
         className={classNames(styles.circle, isLiked && styles.hovered)}
         onClick={addRating}
@@ -79,7 +113,7 @@ export const Rating: FC<IRatingProps> = ({ question }) => {
       >
         <Arrow />
       </button>
-      <p className={styles.rating_text}>{currentRating}</p>
+      <p className="font-semibold">{currentRating}</p>
       <button
         className={classNames(styles.circle, isDisliked && styles.hovered)}
         onClick={cancelRating}
@@ -87,6 +121,6 @@ export const Rating: FC<IRatingProps> = ({ question }) => {
       >
         <Arrow isBottom={true} />
       </button>
-    </Flex>
+    </div>
   );
 };

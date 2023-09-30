@@ -30,9 +30,7 @@ export interface IQuestion {
 
 export interface IAnswer {
   owner: IUser;
-  title: string;
-  problem: string;
-  attemptsFix: string;
+  answer: string;
   likes: string[];
   dislikes: string[];
   tags: string[];

@@ -48,6 +48,10 @@
   gap: 20px;
 }
 
+.ico {
+  filter: invert(0.319);
+}
+
 .line {
   border-top: 1px solid rgb(45, 45, 45);
   margin: 8px 0;

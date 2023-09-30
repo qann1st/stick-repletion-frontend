@@ -8,8 +8,6 @@ import Loading from './loading';
 import { Metadata } from 'next';
 import { Providers } from './Providers';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
   title: 'Stick Repletion',
   description: 'Stick Repletion - форум для программистов',
@@ -26,7 +24,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
     <head>
       <link rel="icon" href="/favicon/favicon.ico" />
     </head>
-    <body className={(inter.className, 'dark text-foreground bg-background')}>
+    <body className="dark text-foreground bg-background">
       <Checker>
         <Providers>
           <Suspense fallback={<Loading />}>
