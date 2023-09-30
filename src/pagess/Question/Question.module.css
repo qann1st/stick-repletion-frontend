@@ -4,12 +4,6 @@
   padding-top: 20px;
 }
 
-.username {
-  color: rgb(148, 148, 148);
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-
 .par {
   font-size: 13px;
   color: rgb(148, 148, 148);
@@ -46,24 +40,4 @@
   border-radius: 10px;
   padding: 15px 20px;
   gap: 20px;
-}
-
-.ico {
-  filter: invert(0.319);
-}
-
-.line {
-  border-top: 1px solid rgb(45, 45, 45);
-  margin: 8px 0;
-  width: 100%;
-}
-
-.links {
-  max-width: 1080px;
-  width: 100%;
-  margin-left: 37px;
-}
-
-.selectedLink {
-  color: rgb(0, 168, 120);
 }

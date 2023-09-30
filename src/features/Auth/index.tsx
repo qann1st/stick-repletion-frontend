@@ -1,7 +1,10 @@
 'use client';
+import { Flex } from '@shared';
+import { MyLink } from '@shared';
 import { Logo } from '@shared';
+import { Typography } from '@shared';
 import { FC, ReactNode } from 'react';
-import { Link } from '@nextui-org/react';
+import styles from './Auth.module.css';
 
 type Link = { href: string; name: string };
 
@@ -12,16 +15,21 @@ interface AuthProps {
 }
 
 export const Auth: FC<AuthProps> = ({ link, heading, children }) => (
-  <section className="flex min-h-full min-w-screen items-center">
-    <div className="flex justify-center items-center flex-col w-xs h-96 px-6 gap-2">
-      <div className="flex items-center flex-col">
+  <Flex justify="center" align="center" className={styles.auth}>
+    <Flex
+      className={styles.wrapper}
+      direction="column"
+      justify="center"
+      align="center"
+    >
+      <Flex className={styles.header} direction="column" align="center">
         <Logo />
-        <h4>{heading}</h4>
-      </div>
+        <Typography as="h1" variant="h4">
+          {heading}
+        </Typography>
+      </Flex>
       {children}
-      <Link color="foreground" href={link.href}>
-        {link.name}
-      </Link>
-    </div>
-  </section>
+      <MyLink href={link.href}>{link.name}</MyLink>
+    </Flex>
+  </Flex>
 );

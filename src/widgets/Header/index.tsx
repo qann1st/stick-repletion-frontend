@@ -1,118 +1,40 @@
 'use client';
-
-import {
-  Input,
-  Link,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-} from '@nextui-org/react';
-import { Logo } from '@shared';
-import { api } from '@shared/api';
-import { useUserStore } from '@shared/store';
-import { FC, FormEvent, useRef, useState } from 'react';
-import UserLink from '../../features/UserLink';
+import { Button, Flex, Logo, MyLink, SearchInput } from '@shared';
+import { IState, useUserStore } from '@shared/store';
+import { FC } from 'react';
 import styles from './Header.module.css';
-import { useRouter } from 'next/navigation';
-import { SearchIcon } from '@shared/images/SearchIcon';
-import NextLink from 'next/link';
-import { MyLink } from '@shared/ui/MyLink';
+import { Avatar } from '@shared/ui/Avatar';
 
 export const Header: FC = () => {
-  const [user, setUser, setAccessToken] = useUserStore(state => [
-    state.user,
-    state.setUser,
-    state.setAccessToken,
-  ]);
-  const router = useRouter();
-  const searchRef = useRef<HTMLInputElement>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchRef.current) {
-      router.push(`/search?search=${searchRef.current.value}`);
-    }
-  };
+  const user = useUserStore((state: IState) => state.user);
 
   return (
-    <Navbar
-      position="sticky"
-      isMenuOpen={isMenuOpen}
-      onMenuOpenChange={setIsMenuOpen}
-    >
-      <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle />
-      </NavbarContent>
-      <NavbarBrand>
-        <MyLink className={(styles.logo, 'sl:hidden sm:block')} href="/">
+    <Flex as="header" className={styles.header}>
+      <Flex className={styles.wrapper} align="center" justify="space-between">
+        <MyLink className={styles.logo} href="/">
           <Logo />
         </MyLink>
-      </NavbarBrand>
-      <NavbarContent justify="center">
-        <NavbarItem>
-          <form onSubmit={handleSubmit}>
-            <Input
-              variant="bordered"
-              type="search"
-              placeholder="Поиск..."
-              startContent={<SearchIcon />}
-              ref={searchRef}
-            />
-          </form>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent className="sl:hidden sm:flex" justify="end">
-        <NavbarItem>
-          <UserLink />
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarMenu className="sl:hidden sm:hidden">
-        <NavbarMenuItem>
-          <MyLink
-            onClick={() => setIsMenuOpen(false)}
-            className="w-full"
-            href="/"
-            size="lg"
-          >
-            Главная страница
-          </MyLink>
-          {user && (
-            <MyLink
-              onClick={() => setIsMenuOpen(false)}
-              className="w-full"
-              href={`/user/${user._id}`}
-              size="lg"
-            >
-              Профиль
+        <Flex className={styles.right}>
+          <SearchInput />
+          {user ? (
+            <MyLink className={styles.profile_link} href={`/user/${user._id}`}>
+              <Flex className={styles.profile}>
+                <p className={styles.name}>{user.username}</p>
+                <Avatar className={styles.avatar} />
+              </Flex>
             </MyLink>
+          ) : (
+            <Flex className={styles.buttons}>
+              <MyLink href="/signin">
+                <Button>Войти</Button>
+              </MyLink>
+              <MyLink href="/signup">
+                <Button variant="ghost">Создать аккаунт</Button>
+              </MyLink>
+            </Flex>
           )}
-          <MyLink
-            onClick={() => setIsMenuOpen(false)}
-            className="w-full"
-            href="/"
-            color="danger"
-            size="lg"
-          >
-            <button
-              onClick={() => {
-                localStorage.removeItem('token');
-                router.push('/');
-                setUser(null);
-                setAccessToken('');
-                api.setToken('');
-              }}
-            >
-              Выйти
-            </button>
-          </MyLink>
-        </NavbarMenuItem>
-      </NavbarMenu>
-    </Navbar>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };

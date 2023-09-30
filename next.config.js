@@ -1,10 +1,16 @@
-const removeImports = require('next-remove-imports');
-
 /** @type {import('next').NextConfig} */
-const nextConfig = removeImports({
+const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-});
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+};
 
 module.exports = nextConfig;
