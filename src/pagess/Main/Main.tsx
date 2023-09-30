@@ -1,22 +1,26 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import styles from './Main.module.css';
 import { QuestionsList } from '../../widgets/QuestionsList';
 import { IQuestionsState, useQuestionsStore } from '@shared/store';
-import Loading from '../../app/loading';
+import { shallow } from 'zustand/shallow';
 
 const Main = () => {
-  const [questions, fetching, totalCount, getQuestions, addQuestions] =
-    useQuestionsStore((state: IQuestionsState) => [
-      state.questions,
-      state.fetching,
-      state.totalCount,
-      state.getQuestions,
-      state.addQuestions,
-    ]);
+  const [fetching, currentPage, totalCount, setQuestions, addQuestions] =
+    useQuestionsStore(
+      (state: IQuestionsState) => [
+        state.fetching,
+        state.currentPage,
+        state.totalCount,
+        state.getQuestions,
+        state.addQuestions,
+      ],
+      shallow
+    );
 
   useEffect(() => {
     if (fetching) {
-      getQuestions();
+      setQuestions();
     }
     // eslint-disable-next-line
   }, [fetching]);
@@ -26,10 +30,6 @@ const Main = () => {
 
     return () => document.removeEventListener('scroll', scrollHandler);
     // eslint-disable-next-line
-  }, [questions]);
-
-  useEffect(() => {
-    getQuestions();
   }, []);
 
   const scrollHandler = () => {
@@ -37,13 +37,13 @@ const Main = () => {
       document.documentElement.scrollHeight -
         (document.documentElement.scrollTop + window.innerHeight) <
         100 &&
-      questions.length < totalCount
+      currentPage < totalCount
     ) {
       addQuestions();
     }
   };
 
-  return fetching ? <Loading /> : <QuestionsList />;
+  return <QuestionsList />;
 };
 
 export default Main;

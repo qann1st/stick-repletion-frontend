@@ -1,0 +1,40 @@
+.button {
+  text-decoration: none;
+  padding: 0 15px;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: normal;
+  color: #f5f5f5;
+  line-height: 30px;
+  cursor: pointer;
+  transition: 0.2s ease background-color;
+  transition: 0.1s ease transform;
+}
+
+.button:active {
+  transform: scale(1.02);
+}
+
+.button__filled {
+  background-color: #2bad72;
+}
+
+.button__filled:hover {
+  background-color: #2eba7b;
+}
+
+.button__ghost {
+  background-color: transparent;
+}
+
+.button__ghost:hover {
+  color: #dbdbdb;
+}
+
+.button:disabled {
+  background-color: #2d2d2d;
+  cursor: not-allowed;
+}
