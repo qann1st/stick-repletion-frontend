@@ -6,8 +6,7 @@ import './globals.css';
 import { Checker } from './Checker';
 import Loading from './loading';
 import { Metadata } from 'next';
-
-const inter = Inter({ subsets: ['latin'] });
+import { Providers } from './Providers';
 
 export const metadata: Metadata = {
   title: 'Stick Repletion',
@@ -25,12 +24,16 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
     <head>
       <link rel="icon" href="/favicon/favicon.ico" />
     </head>
-    <body className={inter.className}>
+    <body className="dark text-foreground bg-background">
       <Checker>
-        <Suspense fallback={<Loading />}>
-          <Header />
-          <main className="main">{children}</main>
-        </Suspense>
+        <Providers>
+          <Suspense fallback={<Loading />}>
+            <Header />
+            <main className="h-full flex justify-center flex-grow">
+              {children}
+            </main>
+          </Suspense>
+        </Providers>
       </Checker>
     </body>
   </html>
