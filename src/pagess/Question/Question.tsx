@@ -17,6 +17,7 @@ import { Answer } from '../../entities/Answer';
 import { Rating } from '../../features/Rating';
 import classNames from 'classnames';
 import styles from './Question.module.css';
+import { useUserStore } from '@shared/store';
 
 const MDEditor = dynamic(
   () => import('@uiw/react-md-editor').then(mod => mod.default),
@@ -24,6 +25,8 @@ const MDEditor = dynamic(
 );
 
 const Question = ({ question }: { question: IQuestion }) => {
+  const user = useUserStore(state => state.user);
+
   const date = new Date(question.createTimestamp);
   const [answerInputText, setAnswerInputText] = useState('');
   const [answers, setAnswers] = useState(question.answers);
@@ -92,25 +95,27 @@ const Question = ({ question }: { question: IQuestion }) => {
             {question.owner.username}
           </MyLink>
           <MarkdownQuestion question={question} />
-          <Divider className="my-2" />
+          {user && <Divider className="my-2" />}
           <div className="flex flex-col gap-2">
             {answers.map(answer => (
               <Answer answer={answer} key={answer._id} />
             ))}
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <MDEditor
-              previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
-              value={answerInputText}
-              onChange={(value = '') => {
-                setAnswerInputText(value);
-              }}
-            />
-            {error && <p className="text-sm text-red-700">{error}</p>}
-            <Button color="primary" type="submit">
-              Опубликовать
-            </Button>
-          </form>
+          {user && (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+              <MDEditor
+                previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
+                value={answerInputText}
+                onChange={(value = '') => {
+                  setAnswerInputText(value);
+                }}
+              />
+              {error && <p className="text-sm text-red-700">{error}</p>}
+              <Button color="primary" type="submit">
+                Опубликовать
+              </Button>
+            </form>
+          )}
         </div>
       </Card>
     </section>

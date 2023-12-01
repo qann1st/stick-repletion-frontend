@@ -1,7 +1,8 @@
 'use client';
-import { Logo } from '@shared';
-import { FC, ReactNode } from 'react';
 import { Link } from '@nextui-org/react';
+import { Logo } from '@shared';
+import { MyLink } from '@shared/ui';
+import { FC, ReactNode } from 'react';
 
 type Link = { href: string; name: string };
 
@@ -19,9 +20,9 @@ export const Auth: FC<AuthProps> = ({ link, heading, children }) => (
         <h4>{heading}</h4>
       </div>
       {children}
-      <Link color="foreground" href={link.href}>
+      <MyLink color="foreground" href={link.href}>
         {link.name}
-      </Link>
+      </MyLink>
     </div>
   </section>
 );

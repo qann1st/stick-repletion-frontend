@@ -1,6 +1,6 @@
 'use client';
-import { Auth, PasswordInput } from '@features';
-import { Button, Flex, Input } from '@shared';
+import { Auth } from '@features';
+import { Button, Input } from '@nextui-org/react';
 import { api } from '@shared/api';
 import { useForm } from '@shared/hooks/useForm';
 import { IState, useUserStore } from '@shared/store';
@@ -57,46 +57,68 @@ const SignUp = () => {
       link={{ name: 'Авторизация', href: '/signin' }}
       heading="Присоединиться к форуму"
     >
-      <Flex
+      <form
         onSubmit={handleSubmit}
-        as="form"
-        className={styles.form}
-        direction="column"
+        className="flex flex-col justify-center items-center gap-3"
         noValidate
       >
         <Input
-          onChange={onChange}
-          type="text"
-          name="username"
-          placeholder="Никнейм"
-          required
-          minLength={2}
-          error={errors.username}
           value={values.username}
+          isInvalid={!!errors.username}
+          errorMessage={errors.username}
+          onChange={onChange}
+          placeholder="Введите свой никнейм"
+          label="Никнейм"
+          className="max-w-xs w-80"
+          labelPlacement="outside"
+          minLength={6}
+          maxLength={32}
+          required
+          name="username"
+          type="text"
         />
         <Input
-          onChange={onChange}
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          required
-          error={errors.email}
           value={values.email}
-        />
-        <PasswordInput
+          isInvalid={!!errors.email}
+          errorMessage={errors.email}
           onChange={onChange}
-          error={errors.password}
-          value={values.password}
+          placeholder="Введите свой E-mail"
+          label="E-mail"
+          className="max-w-xs w-80"
+          labelPlacement="outside"
           minLength={6}
+          maxLength={32}
           required
+          name="email"
+          type="email"
         />
-        <Button disabled={!isValid} type="submit">
+        <Input
+          value={values.password}
+          isInvalid={!!errors.password}
+          errorMessage={errors.password}
+          onChange={onChange}
+          placeholder="Введите свой пароль"
+          label="Пароль"
+          className="max-w-xs w-80"
+          labelPlacement="outside"
+          minLength={6}
+          maxLength={32}
+          required
+          name="password"
+          type="password"
+        />
+        <Button
+          className="w-full"
+          color={isValid ? 'primary' : 'default'}
+          disabled={!isValid}
+          type="submit"
+        >
           {isLoading ? 'Загрузка...' : 'Создать аккаунт'}
         </Button>
         {error && <p className={styles.error}>{error}</p>}
-      </Flex>
+      </form>
     </Auth>
   );
 };
 
-export default SignUp;
+export { SignUp };

@@ -1,5 +1,5 @@
-import NextLink from 'next/link';
-import { Link } from '@nextui-org/react';
+import Link from 'next/link';
+import { Link as UILink } from '@nextui-org/react';
 import { FC, MouseEventHandler, ReactNode } from 'react';
 
 interface IMyLinkProps {
@@ -26,14 +26,14 @@ export const MyLink: FC<IMyLinkProps> = ({
   color = 'foreground',
   onClick,
 }) => (
-  <Link
+  <UILink
     color={color}
     className={className}
-    as={NextLink}
+    as={Link}
     href={href}
     size={size}
     onClick={onClick}
   >
     {children}
-  </Link>
+  </UILink>
 );

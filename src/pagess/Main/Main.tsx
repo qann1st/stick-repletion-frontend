@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { QuestionsList } from '../../widgets/QuestionsList';
 import { IQuestionsState, useQuestionsStore } from '@shared/store';
 import Loading from '../../app/loading';
+import { Button } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 
 const Main = () => {
   const [questions, fetching, totalCount, getQuestions, addQuestions] =
@@ -13,6 +15,8 @@ const Main = () => {
       state.getQuestions,
       state.addQuestions,
     ]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (fetching) {
@@ -30,6 +34,7 @@ const Main = () => {
 
   useEffect(() => {
     getQuestions();
+    // eslint-disable-next-line
   }, []);
 
   const scrollHandler = () => {
@@ -43,7 +48,18 @@ const Main = () => {
     }
   };
 
-  return fetching ? <Loading /> : <QuestionsList />;
+  return fetching ? (
+    <Loading />
+  ) : (
+    <div className="flex items-center flex-col pt-6">
+      <div>
+        <Button onClick={() => router.push('/newquestion')} color="primary">
+          Задать вопрос
+        </Button>
+      </div>
+      <QuestionsList />
+    </div>
+  );
 };
 
-export default Main;
+export { Main };

@@ -94,13 +94,18 @@ const SignIn = () => {
           name="password"
           type="password"
         />
-        <Button color="primary" className="w-full" type="submit">
+        <Button
+          color={isValid ? 'primary' : 'default'}
+          disabled={!isValid}
+          className="w-full"
+          type="submit"
+        >
           {isLoading ? 'Загрузка...' : 'Вход'}
         </Button>
-        {error && <p color="red">{error}</p>}
+        {error && <p>{error}</p>}
       </form>
     </Auth>
   );
 };
 
-export default SignIn;
+export { SignIn };

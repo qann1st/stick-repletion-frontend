@@ -2,7 +2,6 @@
 
 import {
   Input,
-  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -13,14 +12,13 @@ import {
 } from '@nextui-org/react';
 import { Logo } from '@shared';
 import { api } from '@shared/api';
+import { SearchIcon } from '@shared/images/SearchIcon';
 import { useUserStore } from '@shared/store';
+import { MyLink } from '@shared/ui/MyLink';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, FormEvent, useRef, useState } from 'react';
 import UserLink from '../../features/UserLink';
 import styles from './Header.module.css';
-import { useRouter } from 'next/navigation';
-import { SearchIcon } from '@shared/images/SearchIcon';
-import NextLink from 'next/link';
-import { MyLink } from '@shared/ui/MyLink';
 
 export const Header: FC = () => {
   const [user, setUser, setAccessToken] = useUserStore(state => [
@@ -31,6 +29,7 @@ export const Header: FC = () => {
   const router = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const search = useSearchParams().get('search');
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,11 +60,13 @@ export const Header: FC = () => {
               type="search"
               placeholder="Поиск..."
               startContent={<SearchIcon />}
+              defaultValue={search ?? ''}
               ref={searchRef}
             />
           </form>
         </NavbarItem>
       </NavbarContent>
+
       <NavbarContent className="sl:hidden sm:flex" justify="end">
         <NavbarItem>
           <UserLink />

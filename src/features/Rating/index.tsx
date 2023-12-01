@@ -6,6 +6,7 @@ import { Arrow } from '@shared/ui/Arrow';
 import classNames from 'classnames';
 import { FC, useState } from 'react';
 import styles from './Rating.module.css';
+import { Tooltip } from '@nextui-org/react';
 
 interface IRatingProps {
   question: IQuestion | IAnswer;
@@ -105,22 +106,24 @@ export const Rating: FC<IRatingProps> = ({ question, className, isAnswer }) => {
   };
 
   return (
-    <div className={classNames('flex items-center', className)}>
-      <button
-        className={classNames(styles.circle, isLiked && styles.hovered)}
-        onClick={addRating}
-        disabled={isLiked || !user ? true : false}
-      >
-        <Arrow />
-      </button>
-      <p className="font-semibold">{currentRating}</p>
-      <button
-        className={classNames(styles.circle, isDisliked && styles.hovered)}
-        onClick={cancelRating}
-        disabled={isDisliked || !user ? true : false}
-      >
-        <Arrow isBottom={true} />
-      </button>
-    </div>
+    <Tooltip hidden={!!user} content="Авторизуйтесь!">
+      <div className={classNames('flex items-center', className)}>
+        <button
+          className={classNames(styles.circle, isLiked && styles.hovered)}
+          onClick={addRating}
+          disabled={isLiked || !user ? true : false}
+        >
+          <Arrow />
+        </button>
+        <p className="font-semibold">{currentRating}</p>
+        <button
+          className={classNames(styles.circle, isDisliked && styles.hovered)}
+          onClick={cancelRating}
+          disabled={isDisliked || !user ? true : false}
+        >
+          <Arrow isBottom={true} />
+        </button>
+      </div>
+    </Tooltip>
   );
 };
