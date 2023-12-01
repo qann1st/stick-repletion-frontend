@@ -1,6 +1,6 @@
 'use client';
 
-import { IQuestion, IUser } from '../types';
+import { IAnswer, IQuestion, IUser } from '../types';
 
 type Methods = 'GET' | 'POST' | 'PUT' | 'DELETE';
 class Api {
@@ -43,7 +43,7 @@ class Api {
     this.token = null;
   }
 
-  public signIn(data: { email: string; password: string }): Promise<{
+  public async signIn(data: { email: string; password: string }): Promise<{
     accessToken: string;
   }> {
     return this.fetch('signin', 'POST', data).then(res => {
@@ -71,7 +71,7 @@ class Api {
 
   public getQuestions(
     page: number
-  ): Promise<{ questions: IQuestion[]; pages: number }> {
+  ): Promise<{ questions: IQuestion[]; totalCount: number; pages: number }> {
     return this.fetch(`questions?page=${page}&limit=${15}`);
   }
 
@@ -79,12 +79,32 @@ class Api {
     return this.fetch(`questions/${id}`);
   }
 
-  public upRating(id: string): Promise<IQuestion> {
-    return this.fetch(`questions/rating/${id}`, 'PUT');
+  public createAnswer(_id: string, answer: string): Promise<IAnswer> {
+    return this.fetch(`answers`, 'POST', { answer, _id });
   }
 
-  public async downRating(id: string): Promise<IQuestion> {
-    return this.fetch(`questions/rating/${id}`, 'DELETE');
+  public upRating(
+    id: string
+  ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
+    return this.fetch(`questions/rating/up/${id}`, 'PUT');
+  }
+
+  public async cancelRating(
+    id: string
+  ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
+    return this.fetch(`questions/rating/down/${id}`, 'PUT');
+  }
+
+  public upAnswerRating(
+    id: string
+  ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
+    return this.fetch(`answers/rating/up/${id}`, 'PUT');
+  }
+
+  public async cancelAnswerRating(
+    id: string
+  ): Promise<{ rating: number; likes: string[]; dislikes: string[] }> {
+    return this.fetch(`answers/rating/down/${id}`, 'PUT');
   }
 }
 

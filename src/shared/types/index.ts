@@ -21,7 +21,8 @@ export interface IQuestion {
   problem: string;
   attemptsFix: string;
   answers: IAnswer[];
-  rating: IUser[];
+  likes: string[];
+  dislikes: string[];
   tags: string[];
   createTimestamp: Date;
   _id: MongoId;
@@ -29,10 +30,9 @@ export interface IQuestion {
 
 export interface IAnswer {
   owner: IUser;
-  title: string;
-  problem: string;
-  attemptsFix: string;
-  rating: { _id: MongoId }[];
+  answer: string;
+  likes: string[];
+  dislikes: string[];
   tags: string[];
   createTimestamp: Date;
   _id: MongoId;

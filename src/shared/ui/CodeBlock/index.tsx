@@ -1,18 +1,19 @@
-'use client';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import classNames from 'classnames';
+import { FC } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-export const CodeBlock = ({
-  children,
-  className,
-}: {
+interface ICodeBlockProps {
   children: string;
   className: string;
-}) => (
+}
+
+export const CodeBlock: FC<ICodeBlockProps> = ({ children, className }) => (
   <SyntaxHighlighter
-    className={className}
+    className={classNames(className, 'rounded')}
+    language={className?.split('-')[1]}
     showLineNumbers={true}
-    style={atomOneDark}
+    style={darcula}
   >
     {children}
   </SyntaxHighlighter>
